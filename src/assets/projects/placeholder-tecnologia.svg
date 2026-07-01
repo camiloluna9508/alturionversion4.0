@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#0A1628"/>
+  <g stroke="#1A3A5C" stroke-width="1">
+    <path d="M0 50h400M0 100h400M0 150h400M0 200h400M0 250h400M50 0v300M100 0v300M150 0v300M200 0v300M250 0v300M300 0v300M350 0v300"/>
+  </g>
+  <g fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="150" y="100" width="100" height="70" rx="6"/>
+    <circle cx="200" cy="135" r="22"/>
+    <circle cx="200" cy="135" r="8"/>
+    <path d="M150 115h-20M250 115h20"/>
+  </g>
+  <path d="M40 260h320" stroke="#8BA3BC" stroke-width="1.5"/>
+  <text x="24" y="284" fill="#8BA3BC" font-family="sans-serif" font-size="12" letter-spacing="2">TECNOLOGÍA</text>
+</svg>

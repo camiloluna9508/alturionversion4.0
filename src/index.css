@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Paleta "Deep Infrastructure" — sección 3 del documento de diseño.
+     Se define en hex (uso directo en CSS/SVG) y en tripleta RGB (para que
+     Tailwind pueda aplicar modificadores de opacidad tipo bg-cyan/10). */
+  --color-navy: #020b18; /* Abyssal Navy — background base */
+  --color-navy-rgb: 2 11 24;
+  --color-slate: #0a1628; /* Slate Depth — background secundario */
+  --color-slate-rgb: 10 22 40;
+  --color-cyan: #00d4ff; /* Electric Cyan — acento primario */
+  --color-cyan-rgb: 0 212 255;
+  --color-amber: #f59e0b; /* Signal Amber — acento secundario */
+  --color-amber-rgb: 245 158 11;
+  --color-carbon: #0f2035; /* Carbon Glass — superficie de cards */
+  --color-carbon-rgb: 15 32 53;
+  --color-ice: #f0f6ff; /* Ice White — texto principal */
+  --color-ice-rgb: 240 246 255;
+  --color-steel: #8ba3bc; /* Steel Gray — texto secundario */
+  --color-steel-rgb: 139 163 188;
+  --color-blueprint: #1a3a5c; /* Blueprint Line — grid / líneas técnicas */
+  --color-blueprint-rgb: 26 58 92;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-rgb: 37 211 102;
+
+  /* Sistema de color del mapa — sección 10.5 (fill base visible para todo el país) */
+  --color-map-base: #112248;
+  --color-map-base-rgb: 17 34 72;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-navy);
+  color: var(--color-ice);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 700;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes whatsapp-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+.whatsapp-pulse {
+  animation: whatsapp-pulse 3s infinite;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
