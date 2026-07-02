@@ -25,6 +25,24 @@ npm run build    # build de producción a dist/
 npm run preview  # sirve el build de producción localmente
 ```
 
+## Deploy — GitHub Pages
+
+El sitio se publica automáticamente en GitHub Pages en cada push a `main`, vía
+`.github/workflows/deploy.yml` (build con `npm ci && npm run build`, deploy del contenido de
+`dist/` con las actions oficiales `upload-pages-artifact` / `deploy-pages`). URL pública:
+
+```
+https://camiloluna9508.github.io/alturionversion4.0/
+```
+
+**Requiere un paso manual una sola vez:** en GitHub → repo → *Settings → Pages → Build and
+deployment → Source*, seleccionar **GitHub Actions** (en vez de "Deploy from a branch"). Sin esto
+el workflow corre pero no hay dónde publicar el resultado.
+
+`vite.config.js` tiene `base: '/alturionversion4.0/'` porque el sitio vive en un subpath de
+`github.io`, no en la raíz del dominio — coincide con el nombre del repo. Si en algún momento se
+migra a dominio propio (`alturion.com.co`) o a Netlify/Vercel, hay que volver a poner `base: '/'`.
+
 ### Variables de entorno
 
 Copiar `.env.example` a `.env` y completar:
