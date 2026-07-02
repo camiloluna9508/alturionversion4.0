@@ -42,7 +42,8 @@ public/
 src/
   assets/
     logo.png               # logo real de Alturion (hexágono ámbar/azul)
-    projects/*.svg          # placeholders tipo "blueprint" por vertical (sin fotos reales aún)
+    projects/*.svg          # placeholders tipo "blueprint" por vertical (galería, sin fotos reales aún)
+    projects/real/*.webp    # fotos reales de obra usadas en el panel del Hero
   components/                # un componente por bloque de la página, ver detalle abajo
   data/                      # contenido estructurado, editable sin tocar componentes
   App.jsx                    # ensambla las secciones en el orden de la sección 2 del spec
@@ -79,6 +80,14 @@ estén ahí.
   pasada de texto con relleno sólido aparece justo después del trazo.
 - **Panel HUD** (`HeroPhotoPanel.jsx`): crossfade cada 9s entre 4 imágenes vía `AnimatePresence`,
   primera imagen con `loading="eager"` + `fetchPriority="high"` para LCP. Sin overlay de texto.
+  Usa 4 fotos reales de obra en `src/assets/projects/real/` (telecomunicaciones, energía solar,
+  subestación, obra civil), comprimidas a WebP calidad 72 / máx. 1600px de ancho (~200–270 KB c/u,
+  bajaron de ~1.4 MB originales). La galería (sección 11) todavía usa los placeholders SVG tipo
+  blueprint — se reemplazan proyecto a proyecto a medida que haya fotos.
+- **Split de la zona texto/foto**: 50/50 en desktop (`lg:grid-cols-[50%_50%]` en `Hero.jsx`), ajustado
+  desde el 55/45 original del spec para darle más protagonismo a la foto ahora que son fotos reales
+  y no placeholders. En este ancho la fila de diferenciadores pasa de 2 columnas a 1 sola — es una
+  concesión aceptada, no un bug.
 
 ### Mapa interactivo (`MapSection.jsx`, `ColombiaMap.jsx`, `ProjectPanel.jsx`, `InviasCard.jsx`)
 
@@ -126,7 +135,8 @@ con mouse vía Pointer Events + indicador de puntos (clicables). **Sin `setInter
 
 | Qué | Dónde | Estado |
 |---|---|---|
-| Fotos reales de proyectos | `src/assets/projects/*.svg` (Hero + Galería) | Placeholders tipo blueprint por vertical, según indica la sección 11 del spec mientras no haya fotos |
+| Fotos reales de proyectos — Hero | `src/assets/projects/real/*.webp` | ✅ Reemplazadas — 4 fotos reales en crossfade |
+| Fotos reales de proyectos — Galería | `src/assets/projects/*.svg` (Galería) | Pendiente — sigue con placeholders tipo blueprint por vertical, según indica la sección 11 del spec |
 | Site key de reCAPTCHA v2 real | `.env` → `VITE_RECAPTCHA_SITE_KEY` | Usa la key de pruebas de Google |
 | Endpoint de Formspree | `.env` → `VITE_FORMSPREE_ENDPOINT` | Sin configurar |
 | `og-image.jpg` | Referenciado en `index.html` (Open Graph) | No existe el archivo aún |

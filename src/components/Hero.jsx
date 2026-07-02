@@ -38,7 +38,7 @@ function Hero() {
 
       <TechGrid accentLines />
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-x-12 px-6 pb-20 pt-14 lg:grid-cols-[55%_45%] lg:gap-y-10 lg:pb-28 lg:pt-20">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-x-12 px-6 pb-20 pt-14 lg:grid-cols-[50%_50%] lg:gap-y-10 lg:pb-28 lg:pt-20">
         {/* Zona texto — bloque superior (glass card, eyebrow, headline, subhead) */}
         <div className="order-1 flex flex-col gap-6 lg:col-start-1 lg:row-start-1">
           <div

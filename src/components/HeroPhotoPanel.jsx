@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import placeholderTelecom from '../assets/projects/placeholder-telecom.svg'
-import placeholderEnergia from '../assets/projects/placeholder-energia.svg'
-import placeholderInfraestructura from '../assets/projects/placeholder-infraestructura.svg'
-import placeholderTecnologia from '../assets/projects/placeholder-tecnologia.svg'
+import fotoTelecomunicaciones from '../assets/projects/real/telecomunicaciones.webp'
+import fotoPanelesSolares from '../assets/projects/real/panelessolares.webp'
+import fotoSubestacion from '../assets/projects/real/subestacion.webp'
+import fotoObraCivil from '../assets/projects/real/obracivil.webp'
 
-// TODO: reemplazar por fotos reales de proyectos cuando estén disponibles (ver checklist sección 17).
 const PHOTOS = [
-  { src: placeholderTelecom, alt: 'Obra de telecomunicaciones ejecutada por Alturion' },
-  { src: placeholderEnergia, alt: 'Proyecto de energía ejecutado por Alturion' },
-  { src: placeholderInfraestructura, alt: 'Obra civil de infraestructura ejecutada por Alturion' },
-  { src: placeholderTecnologia, alt: 'Integración tecnológica ejecutada por Alturion' },
+  { src: fotoTelecomunicaciones, alt: 'Obra de telecomunicaciones ejecutada por Alturion' },
+  { src: fotoPanelesSolares, alt: 'Planta solar ejecutada por Alturion' },
+  { src: fotoSubestacion, alt: 'Subestación eléctrica ejecutada por Alturion' },
+  { src: fotoObraCivil, alt: 'Obra civil de infraestructura ejecutada por Alturion' },
 ]
 
 const CROSSFADE_MS = 9000
