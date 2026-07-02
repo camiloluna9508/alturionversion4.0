@@ -7,21 +7,41 @@ import { INVIAS_PROJECT } from '../data/departmentProjects'
  */
 function InviasCard() {
   return (
-    <div className="mt-8 flex flex-col gap-4 rounded-xl border border-ice/[0.07] bg-carbon p-6 sm:flex-row sm:items-center">
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-amber/20 bg-amber/[0.08]">
-        <Route size={22} className="text-amber" />
-      </div>
-      <div>
-        <span className="inline-block rounded border border-amber/30 bg-amber/15 px-2 py-0.5 text-[11px] uppercase tracking-wide text-amber">
-          {INVIAS_PROJECT.vertical}
-        </span>
-        <h4 className="mt-2 font-display text-base uppercase tracking-wide text-ice">
-          {INVIAS_PROJECT.title}
-        </h4>
-        <p className="mt-1 text-[13px] text-ice/60">
-          {INVIAS_PROJECT.location} · {INVIAS_PROJECT.year}
-        </p>
-        <p className="mt-1 text-[13px] text-ice/50">{INVIAS_PROJECT.metrics}</p>
+    <div className="mt-8 flex flex-col gap-4 overflow-hidden rounded-xl border border-ice/[0.07] bg-carbon sm:flex-row sm:items-stretch">
+      {INVIAS_PROJECT.image && (
+        <div className="relative h-20 w-full shrink-0 sm:h-auto sm:w-36">
+          <img
+            src={INVIAS_PROJECT.image}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to bottom, transparent 0%, rgba(15,32,53,0.35) 70%, rgba(15,32,53,0.85) 100%)',
+            }}
+          />
+        </div>
+      )}
+      <div className="flex items-center gap-4 p-6 pt-0 sm:pt-6">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-amber/20 bg-amber/[0.08]">
+          <Route size={22} className="text-amber" />
+        </div>
+        <div>
+          <span className="inline-block rounded border border-amber/30 bg-amber/15 px-2 py-0.5 text-[11px] uppercase tracking-wide text-amber">
+            {INVIAS_PROJECT.vertical}
+          </span>
+          <h4 className="mt-2 font-display text-base uppercase tracking-wide text-ice">
+            {INVIAS_PROJECT.title}
+          </h4>
+          <p className="mt-1 text-[13px] text-ice/60">
+            {INVIAS_PROJECT.location} · {INVIAS_PROJECT.year}
+          </p>
+          <p className="mt-1 text-[13px] text-ice/50">{INVIAS_PROJECT.metrics}</p>
+        </div>
       </div>
     </div>
   )

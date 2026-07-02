@@ -77,6 +77,19 @@ h4,
   animation: whatsapp-pulse 3s infinite;
 }
 
+@keyframes ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 9s linear forwards;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

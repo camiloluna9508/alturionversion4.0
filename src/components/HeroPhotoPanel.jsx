@@ -17,8 +17,12 @@ const CROSSFADE_MS = 9000
 /**
  * Panel tipo HUD — zona foto del hero (sección 5). Fotos en crossfade, opacidad
  * completa, sin overlay de texto. Primera imagen precargada como LCP.
+ *
+ * `background`: variante experimental sin marco HUD (bracket corners / borde / esquinas
+ * redondeadas), pensada para usarse como fondo a sangre completa del hero en vez de panel
+ * lateral — ver `experiments`/comparación full-bleed pedida fuera del spec original.
  */
-function HeroPhotoPanel() {
+function HeroPhotoPanel({ background = false }) {
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
@@ -27,6 +31,42 @@ function HeroPhotoPanel() {
     }, CROSSFADE_MS)
     return () => clearInterval(id)
   }, [])
+
+  const frame = (
+    <div
+      className={
+        background
+          ? 'relative h-full w-full overflow-hidden'
+          : 'relative h-full w-full overflow-hidden rounded-lg border border-cyan/30 bg-carbon'
+      }
+    >
+      <AnimatePresence initial={false}>
+        <motion.img
+          key={index}
+          src={PHOTOS[index].src}
+          alt={PHOTOS[index].alt}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          fetchPriority={index === 0 ? 'high' : 'auto'}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.1, ease: 'easeInOut' }}
+          className="animate-ken-burns absolute inset-0 h-full w-full object-cover"
+        />
+      </AnimatePresence>
+      {!background && (
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, transparent 55%, rgba(2,11,24,0.55) 100%)',
+          }}
+        />
+      )}
+    </div>
+  )
+
+  if (background) return frame
 
   return (
     <div className="relative h-[280px] lg:h-full lg:min-h-[520px] w-full">
@@ -41,23 +81,7 @@ function HeroPhotoPanel() {
           />
         ))}
       </div>
-
-      <div className="relative h-full w-full overflow-hidden rounded-lg border border-cyan/30 bg-carbon">
-        <AnimatePresence initial={false}>
-          <motion.img
-            key={index}
-            src={PHOTOS[index].src}
-            alt={PHOTOS[index].alt}
-            loading={index === 0 ? 'eager' : 'lazy'}
-            fetchPriority={index === 0 ? 'high' : 'auto'}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.1, ease: 'easeInOut' }}
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        </AnimatePresence>
-      </div>
+      {frame}
     </div>
   )
 }

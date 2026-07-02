@@ -64,14 +64,14 @@ function MapSection() {
         </p>
 
         <div
-          className={`mt-10 flex flex-col gap-8 ${
-            isSelected ? 'lg:flex-row lg:items-start' : 'items-center'
+          className={`mt-10 flex gap-4 sm:gap-8 ${
+            isSelected ? 'flex-row items-start' : 'flex-col items-center'
           }`}
         >
           <motion.div
             layout
             transition={SPRING}
-            className={isSelected ? 'w-[140px] shrink-0 lg:w-[220px]' : 'w-full max-w-[640px]'}
+            className={isSelected ? 'w-[100px] shrink-0 sm:w-[140px] lg:w-[220px]' : 'w-full max-w-[640px]'}
           >
             <ColombiaMap
               geoData={geoData}

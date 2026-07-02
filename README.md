@@ -78,16 +78,29 @@ estén ahí.
   `stroke-dashoffset`, animado vía CSS transition (no vía el `pathLength` de Framer Motion, que no
   funciona de forma fiable sobre `<text>` porque no implementa `getTotalLength()`). Una segunda
   pasada de texto con relleno sólido aparece justo después del trazo.
-- **Panel HUD** (`HeroPhotoPanel.jsx`): crossfade cada 9s entre 4 imágenes vía `AnimatePresence`,
-  primera imagen con `loading="eager"` + `fetchPriority="high"` para LCP. Sin overlay de texto.
-  Usa 4 fotos reales de obra en `src/assets/projects/real/` (telecomunicaciones, energía solar,
+- **Panel HUD / fondo del Hero** (`HeroPhotoPanel.jsx`): crossfade cada 9s entre 4 imágenes vía
+  `AnimatePresence`, primera imagen con `loading="eager"` + `fetchPriority="high"` para LCP. Usa 4
+  fotos reales de obra en `src/assets/projects/real/` (telecomunicaciones, energía solar,
   subestación, obra civil), comprimidas a WebP calidad 72 / máx. 1600px de ancho (~200–270 KB c/u,
-  bajaron de ~1.4 MB originales). La galería (sección 11) todavía usa los placeholders SVG tipo
-  blueprint — se reemplazan proyecto a proyecto a medida que haya fotos.
-- **Split de la zona texto/foto**: 50/50 en desktop (`lg:grid-cols-[50%_50%]` en `Hero.jsx`), ajustado
-  desde el 55/45 original del spec para darle más protagonismo a la foto ahora que son fotos reales
-  y no placeholders. En este ancho la fila de diferenciadores pasa de 2 columnas a 1 sola — es una
-  concesión aceptada, no un bug.
+  bajaron de ~1.4 MB originales). Cada foto tiene un **zoom Ken Burns** sutil (escala 1 → 1.06 en
+  9s) vía `@keyframes ken-burns` en `index.css` — deliberadamente **CSS puro, no Framer Motion**:
+  `AnimatePresence initial={false}` (para no retrasar el LCP con un fade-in) suprime la animación
+  `initial`→`animate` en el primer montaje, así que si el zoom viviera en el `animate` de Framer la
+  primera foto nunca lo mostraría. Además del crossfade, tiene una viñeta radial
+  (`rgba(2,11,24,0.55)` en los bordes) para fundirse con el navy. El componente acepta la prop
+  `background` (`<HeroPhotoPanel background />`) que quita el marco HUD (bracket corners, borde,
+  esquinas redondeadas) para usarse como fondo a sangre completa en vez de panel lateral.
+- **Hero full-bleed con foto de fondo** (`Hero.jsx`): la foto ocupa **todo** el hero como fondo
+  (`<HeroPhotoPanel background />` en `absolute inset-0 z-0`), con un scrim en degradado
+  (`linear-gradient` horizontal, oscuro a la izquierda → transparente a la derecha, más un segundo
+  scrim vertical que protege la fila de diferenciadores) para que el texto se mantenga legible sobre
+  la foto. **Esto es una desviación deliberada de las secciones 5 y 18 del spec**, que documentan por
+  qué se descartó el hero full-bleed originalmente (conflicto entre legibilidad del texto y opacidad
+  de la foto) y prohíben explícitamente overlay de texto sobre fotos del hero. Se adoptó a pedido
+  explícito del cliente tras comparar ambas versiones. **Limitación conocida:** el scrim está
+  calibrado para desktop; en mobile (viewport angosto) el mismo degradado horizontal no alcanza a
+  oscurecer todo el ancho de texto y el contraste baja — pendiente de un tratamiento de scrim
+  específico para mobile (ver sección de deuda técnica más abajo).
 
 ### Mapa interactivo (`MapSection.jsx`, `ColombiaMap.jsx`, `ProjectPanel.jsx`, `InviasCard.jsx`)
 
@@ -106,6 +119,23 @@ Pieza más compleja del sitio. Decisiones clave:
   cálculo de encuadre y del renderizado (no tiene proyectos en el brochure).
 - **Accesibilidad**: lista `<ul className="sr-only">` con un `<button>` por departamento con
   proyectos, misma función que clicar el path correspondiente.
+- **Fotos por proyecto** (`ProjectPanel.jsx`, `InviasCard.jsx`): cada proyecto en
+  `departmentProjects.js` tiene un campo `image`. Donde hay match exacto con una de las 4 fotos
+  reales (Subestación 800 KVA en Bogotá, Planta solar en Córdoba, Obra civil LPR en Antioquia) se
+  usa esa foto puntual; el resto reutiliza la foto real más representativa de su vertical (mismo
+  criterio que ya usaba `galleryProjects.js` con los placeholders SVG — reutilización consistente,
+  no cifras/proyectos inventados). Tecnología no tiene foto real todavía y sigue con el placeholder
+  blueprint. La foto vive como fondo absoluto de la tarjeta (`position: absolute; inset: 0`) con un
+  degradado `linear-gradient(to bottom, ...)` que la funde con el texto — nunca una foto suelta
+  arriba de la tarjeta, para mantener el bloque compacto.
+- **Grilla de proyectos responsive**: `ProjectPanel.jsx` usa `grid-cols-1 sm:grid-cols-2`. Cuando un
+  departamento tiene un solo proyecto, esa tarjeta recibe `sm:col-span-2` para ocupar todo el ancho
+  en vez de dejar la mitad del panel vacía.
+- **Layout mobile del mapa seleccionado — desviación del spec**: la sección 10.4 del spec pide
+  mini-mapa arriba y panel de proyectos debajo en mobile (apilado vertical). A pedido explícito del
+  cliente, `MapSection.jsx` usa el mismo layout en fila (mini-mapa + panel lado a lado) en **todos**
+  los breakpoints, no solo desde `lg`. El mini-mapa se achica a 100px en mobile (`sm:140px`,
+  `lg:220px`) para dejarle aire al panel.
 
 Verificación de integridad de datos (`DPTO_CNMBR` del GeoJSON vs. keys de `departmentProjects.js`):
 
@@ -144,6 +174,17 @@ con mouse vía Pointer Events + indicador de puntos (clicables). **Sin `setInter
 ## Checklist de lanzamiento
 
 Ver sección 17 de `alturion-landing-final.md`. Auditado contra la sección 18 ("Lo que NO hacer") el
-2026-07-01 — sin violaciones (sin autoplay fuera del crossfade permitido del hero, sin
-`filter: blur()` en fondos grandes, mapa 100% D3+GeoJSON, D3 solo modular, máx. 2 CTAs por sección,
-sin overlays de texto en fotos del hero, paleta cerrada a los colores de la sección 3).
+2026-07-01 — sin violaciones en ese momento (sin autoplay fuera del crossfade permitido del hero,
+sin `filter: blur()` en fondos grandes, mapa 100% D3+GeoJSON, D3 solo modular, máx. 2 CTAs por
+sección, paleta cerrada a los colores de la sección 3).
+
+**Actualización 2026-07-02 — desviaciones deliberadas del spec, a pedido del cliente:**
+- ❗ El Hero ahora **sí** tiene overlay de texto sobre foto (sección 18 lo prohíbe explícitamente) —
+  ver "Hero full-bleed con foto de fondo" arriba. Cambio consciente tras comparar ambas versiones
+  con fotos reales; queda documentado como excepción, no como bug.
+- ❗ El layout mobile del mapa seleccionado ya no sigue el patrón apilado de la sección 10.4 — ver
+  "Layout mobile del mapa seleccionado" arriba.
+
+**Deuda técnica pendiente:** el scrim del Hero full-bleed no tiene tratamiento específico para
+mobile todavía (ver limitación conocida arriba) — el contraste del texto sobre la foto baja en
+viewports angostos.
