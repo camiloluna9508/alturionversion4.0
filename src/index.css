@@ -61,6 +61,30 @@ h4,
   display: none;
 }
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-blueprint) var(--color-navy);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-blueprint);
+  border-radius: 8px;
+  border: 2px solid var(--color-navy);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-cyan);
+}
+
 @keyframes whatsapp-pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);

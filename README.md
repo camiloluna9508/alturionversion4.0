@@ -84,6 +84,14 @@ contenido no implique tocar JSX:
 2026, citado en la sección 1 del spec. No se agregaron proyectos, cifras ni departamentos que no
 estén ahí.
 
+### Scrollbar (`index.css`)
+
+**Corrección 2026-07-03:** la barra de scroll usaba el estilo por defecto del navegador (gris
+claro), que desentonaba con la paleta oscura "Deep Infrastructure". Se estilizó con
+`::-webkit-scrollbar` (Chrome/Edge/Safari) + `scrollbar-width`/`scrollbar-color` (Firefox): pista
+`--color-navy`, thumb `--color-blueprint` que pasa a `--color-cyan` en hover — delgada (10px) y
+consistente con el resto de la paleta en vez del gris de sistema.
+
 ## Componentes — notas de implementación por bloque
 
 ### Hero (`Hero.jsx`, `AnimatedHeadline.jsx`, `HeroPhotoPanel.jsx`, `TechGrid.jsx`)
