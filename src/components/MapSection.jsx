@@ -84,7 +84,7 @@ function MapSection() {
               <button
                 type="button"
                 onClick={() => setSelectedDept(null)}
-                className="mt-3 flex w-full items-center justify-center gap-1.5 rounded border border-ice/20 py-1.5 font-display text-[11px] uppercase tracking-wide text-ice/80 transition-colors duration-200 hover:border-cyan hover:text-cyan"
+                className="mt-3 flex w-full items-center justify-center gap-1.5 text-xs text-steel transition-colors duration-200 hover:text-cyan"
               >
                 <X size={12} />
                 Ver mapa completo

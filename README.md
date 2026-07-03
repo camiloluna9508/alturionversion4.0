@@ -167,6 +167,13 @@ Pieza más compleja del sitio. Decisiones clave:
   cliente, `MapSection.jsx` usa el mismo layout en fila (mini-mapa + panel lado a lado) en **todos**
   los breakpoints, no solo desde `lg`. El mini-mapa se achica a 100px en mobile (`sm:140px`,
   `lg:220px`) para dejarle aire al panel.
+- **Botón "Ver mapa completo" como link de texto, no como botón con caja**: bajo el mini-mapa
+  seleccionado. **Corrección 2026-07-03:** tenía borde + fondo + mayúsculas tipo CTA
+  (`rounded border border-ice/20 ... hover:border-cyan`), lo que lo hacía leer como un botón
+  primario y rompía la armonía visual junto a un mini-mapa de apenas 100–220px de ancho. Se
+  alineó al mismo lenguaje que ya usan los links secundarios del sitio (`Footer.jsx`, flechas del
+  carrusel en `Gallery.jsx`): texto plano `text-steel` que pasa a `hover:text-cyan`, sin borde ni
+  fondo. Misma función (`onClick={() => setSelectedDept(null)}`), solo cambió el peso visual.
 
 Verificación de integridad de datos (`DPTO_CNMBR` del GeoJSON vs. keys de `departmentProjects.js`):
 
