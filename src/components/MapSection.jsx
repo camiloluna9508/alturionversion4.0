@@ -84,10 +84,11 @@ function MapSection() {
               <button
                 type="button"
                 onClick={() => setSelectedDept(null)}
-                className="mt-3 flex w-full items-center justify-center gap-1.5 text-xs text-steel transition-colors duration-200 hover:text-cyan"
+                className="mt-3 flex w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-full bg-ice/[0.05] px-3 py-1.5 text-[11px] text-ice/70 transition-colors duration-200 hover:bg-cyan/[0.08] hover:text-cyan active:bg-cyan/[0.08] active:text-cyan"
               >
-                <X size={12} />
-                Ver mapa completo
+                <X size={11} className="shrink-0" />
+                <span className="lg:hidden">Ver mapa</span>
+                <span className="hidden lg:inline">Ver mapa completo</span>
               </button>
             ) : (
               <div className="mt-6">

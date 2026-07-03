@@ -167,13 +167,22 @@ Pieza más compleja del sitio. Decisiones clave:
   cliente, `MapSection.jsx` usa el mismo layout en fila (mini-mapa + panel lado a lado) en **todos**
   los breakpoints, no solo desde `lg`. El mini-mapa se achica a 100px en mobile (`sm:140px`,
   `lg:220px`) para dejarle aire al panel.
-- **Botón "Ver mapa completo" como link de texto, no como botón con caja**: bajo el mini-mapa
-  seleccionado. **Corrección 2026-07-03:** tenía borde + fondo + mayúsculas tipo CTA
-  (`rounded border border-ice/20 ... hover:border-cyan`), lo que lo hacía leer como un botón
-  primario y rompía la armonía visual junto a un mini-mapa de apenas 100–220px de ancho. Se
-  alineó al mismo lenguaje que ya usan los links secundarios del sitio (`Footer.jsx`, flechas del
-  carrusel en `Gallery.jsx`): texto plano `text-steel` que pasa a `hover:text-cyan`, sin borde ni
-  fondo. Misma función (`onClick={() => setSelectedDept(null)}`), solo cambió el peso visual.
+- **Botón "Ver mapa completo" — de caja con borde a link, a link con poco peso, a "pill" sutil**:
+  bajo el mini-mapa seleccionado, tres iteraciones en 2026-07-03 buscando el punto justo entre
+  "parece un botón primario" y "no se nota que es tocable":
+  1. Versión original: borde + fondo + mayúsculas tipo CTA (`rounded border border-ice/20 ...
+     hover:border-cyan`) — leía como botón primario y rompía la armonía junto a un mini-mapa de
+     apenas 100–220px de ancho.
+  2. Se cambió a texto plano (`text-steel` → `hover:text-cyan`, sin borde ni fondo, mismo lenguaje
+     que los links de `Footer.jsx` y las flechas del carrusel en `Gallery.jsx`) — resolvió lo
+     anterior, pero en mobile (columna de 100px) el texto completo "Ver mapa completo" partía en
+     dos líneas con el ícono `X` descentrado respecto a ambas.
+  3. Versión final: pastilla sutil (`rounded-full bg-ice/[0.05]`, sin borde) con `hover:` y
+     `active:` (el `active:` importa porque en touch no hay hover) pasando a `bg-cyan/[0.08]
+     text-cyan`. El label se acorta a "Ver mapa" bajo `lg` y solo se expande a "Ver mapa completo"
+     desde `lg` (`<span className="lg:hidden">`/`<span className="hidden lg:inline">`) para que
+     quepa en una sola línea en cualquier ancho del mini-mapa. Misma función
+     (`onClick={() => setSelectedDept(null)}`) en las tres versiones, solo cambió el peso visual.
 
 Verificación de integridad de datos (`DPTO_CNMBR` del GeoJSON vs. keys de `departmentProjects.js`):
 
