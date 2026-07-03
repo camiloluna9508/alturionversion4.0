@@ -105,16 +105,23 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-ice/[0.06] py-12 text-center">
-          <h3 className="font-display text-2xl uppercase tracking-wide text-ice sm:text-3xl">
-            ¿Hablemos de su próximo proyecto?
-          </h3>
-          <a
-            href="#contacto"
-            className="mt-6 inline-block rounded bg-cyan px-8 py-3 font-display text-sm uppercase tracking-wide text-navy transition-transform duration-200 hover:-translate-y-0.5"
+        <div className="mt-14 border-t border-ice/[0.06] pb-12 pt-12">
+          <div
+            className="rounded-xl border border-cyan/20 px-6 py-10 text-center sm:px-8"
+            style={{
+              background: 'linear-gradient(135deg, rgba(0,212,255,0.06), rgba(0,212,255,0.02))',
+            }}
           >
-            Hablemos
-          </a>
+            <h3 className="font-display text-2xl uppercase tracking-wide text-ice sm:text-3xl">
+              ¿Hablemos de su próximo proyecto?
+            </h3>
+            <a
+              href="#contacto"
+              className="mt-6 inline-block rounded bg-cyan px-8 py-3 font-display text-sm uppercase tracking-wide text-navy transition-transform duration-200 hover:-translate-y-0.5"
+            >
+              Hablemos
+            </a>
+          </div>
         </div>
 
         <div className="flex flex-col items-center gap-2 border-t border-ice/[0.06] py-6 text-center text-xs text-steel sm:flex-row sm:justify-between sm:text-left">

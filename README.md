@@ -208,6 +208,16 @@ con mouse vía Pointer Events + indicador de puntos (clicables). **Sin `setInter
   Lucide no incluye íconos de marca — es la única excepción a "solo Lucide" en todo el proyecto, y
   es deliberada (el botón necesita ser reconocible al instante).
 
+### Footer (`Footer.jsx`)
+
+- **CTA final en panel con borde/gradiente, no suelto sobre el navy**. **Corrección 2026-07-03:**
+  el bloque "¿Hablemos de su próximo proyecto?" era texto + botón flotando directamente sobre el
+  fondo navy, sin contenedor — el único bloque destacado del sitio sin el tratamiento de borde
+  sutil + gradiente (`border border-cyan/20` + `linear-gradient(135deg, rgba(0,212,255,0.06),
+  rgba(0,212,255,0.02))`) que sí usan la banda de Servicios Profesionales en `Verticals.jsx` y las
+  pills del mapa. Se envolvió en el mismo panel (`rounded-xl border border-cyan/20`) para que se
+  lea como parte del mismo sistema visual en vez de un texto suelto.
+
 ## Assets pendientes de reemplazo
 
 | Qué | Dónde | Estado |
