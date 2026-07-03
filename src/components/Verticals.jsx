@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { HardHat, Zap, Radio, Cpu, ClipboardList } from 'lucide-react'
 import TechGrid from './TechGrid'
@@ -40,7 +40,6 @@ function VerticalCard({ vertical, isActive, onClick }) {
 
 function Verticals() {
   const [activeIndex, setActiveIndex] = useState(null)
-  const active = activeIndex !== null ? VERTICALS[activeIndex] : null
 
   return (
     <section id="servicios" className="relative overflow-hidden bg-navy py-20">
@@ -60,39 +59,39 @@ function Verticals() {
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
           {VERTICALS.map((vertical, i) => (
-            <VerticalCard
-              key={vertical.n}
-              vertical={vertical}
-              isActive={activeIndex === i}
-              onClick={() => setActiveIndex(activeIndex === i ? null : i)}
-            />
+            <Fragment key={vertical.n}>
+              <VerticalCard
+                vertical={vertical}
+                isActive={activeIndex === i}
+                onClick={() => setActiveIndex(activeIndex === i ? null : i)}
+              />
+
+              <AnimatePresence>
+                {activeIndex === i && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.2 }}
+                    className="col-span-full rounded-xl border border-ice/[0.07] bg-carbon p-6"
+                  >
+                    <h4 className="font-display text-sm uppercase tracking-wide text-cyan">
+                      {vertical.title} — detalle de capacidades
+                    </h4>
+                    <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                      {vertical.detalle.map((item) => (
+                        <div key={item} className="flex items-center gap-2 rounded bg-ice/[0.03] px-3 py-2">
+                          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
+                          <span className="text-xs text-ice/80">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Fragment>
           ))}
         </div>
-
-        <AnimatePresence>
-          {active && (
-            <motion.div
-              key={active.n}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              transition={{ duration: 0.2 }}
-              className="mt-6 rounded-xl border border-ice/[0.07] bg-carbon p-6"
-            >
-              <h4 className="font-display text-sm uppercase tracking-wide text-cyan">
-                {active.title} — detalle de capacidades
-              </h4>
-              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                {active.detalle.map((item) => (
-                  <div key={item} className="flex items-center gap-2 rounded bg-ice/[0.03] px-3 py-2">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
-                    <span className="text-xs text-ice/80">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* Banda de Servicios Profesionales — capa transversal */}
         <div

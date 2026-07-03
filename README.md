@@ -120,6 +120,19 @@ estén ahí.
   oscurecer todo el ancho de texto y el contraste baja — pendiente de un tratamiento de scrim
   específico para mobile (ver sección de deuda técnica más abajo).
 
+### Verticales de servicio (`Verticals.jsx`)
+
+- **Panel de detalle inline en el grid, no al final de la sección**: al seleccionar una tarjeta
+  (sección 8, "Cuatro verticales / un mismo sistema"), el panel "— detalle de capacidades" se
+  renderiza como un ítem más del propio grid (`col-span-full` justo después de la tarjeta activa,
+  vía `Fragment` por cada vertical), en vez de un único bloque fijo después de las 4 tarjetas.
+  **Corrección 2026-07-03:** con el bloque fijo al final, en mobile (`grid-cols-1`, las 4 tarjetas
+  apiladas) tocar la primera o segunda tarjeta abría el panel debajo de la cuarta tarjeta, fuera
+  del viewport y sin ningún indicio de que había aparecido contenido nuevo — el usuario tenía que
+  adivinar que debía hacer scroll. Con `col-span-full` dentro del grid, en mobile el panel queda
+  pegado a la tarjeta tocada; en desktop (`sm:grid-cols-2`) sigue expandiéndose a todo el ancho,
+  empujando el resto de las tarjetas hacia abajo, igual que antes.
+
 ### Mapa interactivo (`MapSection.jsx`, `ColombiaMap.jsx`, `ProjectPanel.jsx`, `InviasCard.jsx`)
 
 Pieza más compleja del sitio. Decisiones clave:
