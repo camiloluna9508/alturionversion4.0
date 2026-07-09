@@ -60,8 +60,8 @@ public/
 src/
   assets/
     logo.png               # logo real de Alturion (hexágono ámbar/azul)
-    projects/*.svg          # placeholders tipo "blueprint" por vertical (galería, sin fotos reales aún)
-    projects/real/*.webp    # fotos reales de obra usadas en el panel del Hero
+    projects/real/*.webp    # fotos reales de obra: 4 para el crossfade del Hero + 9 dedicadas
+                            # 1:1 a cada proyecto (Galería + panel de departamentos)
   components/                # un componente por bloque de la página, ver detalle abajo
   data/                      # contenido estructurado, editable sin tocar componentes
   App.jsx                    # ensambla las secciones en el orden de la sección 2 del spec
@@ -203,6 +203,14 @@ node -e "console.log(JSON.parse(require('fs').readFileSync('public/colombia.geo.
 Carrusel 100% manual: `scroll-snap-type: x mandatory` nativo (touch/trackpad sin JS) + drag-to-scroll
 con mouse vía Pointer Events + indicador de puntos (clicables). **Sin `setInterval`, sin autoplay.**
 
+**Fotos reales 1:1 por proyecto (2026-07-08):** los 9 proyectos de `galleryProjects.js` y sus
+entradas equivalentes en `departmentProjects.js` usan cada uno su propia foto real (no reutilizada
+entre verticales) — `src/assets/projects/real/*.webp`, comprimidas igual que las 4 del Hero (WebP
+calidad 72, máx. 1600px de ancho). Un proyecto que aparece en varios departamentos (p. ej.
+"Implementación sistema CCTV" en Bolívar/Sucre/Santander, o "Escuelas en potencia 5G" en
+Antioquia/Santander/Meta/Caldas) reutiliza su propia foto en cada aparición, nunca la de otro
+proyecto. Ya no quedan placeholders SVG tipo blueprint en el proyecto.
+
 ### Formulario y WhatsApp (`Contact.jsx`, `Recaptcha.jsx`, `WhatsAppButton.jsx`)
 
 - `Recaptcha.jsx` carga `recaptcha/api.js` de forma perezosa y renderiza el widget en modo
@@ -231,10 +239,10 @@ con mouse vía Pointer Events + indicador de puntos (clicables). **Sin `setInter
 | Qué | Dónde | Estado |
 |---|---|---|
 | Fotos reales de proyectos — Hero | `src/assets/projects/real/*.webp` | ✅ Reemplazadas — 4 fotos reales en crossfade |
-| Fotos reales de proyectos — Galería | `src/assets/projects/*.svg` (Galería) | Pendiente — sigue con placeholders tipo blueprint por vertical, según indica la sección 11 del spec |
+| Fotos reales de proyectos — Galería + panel de departamentos | `src/data/galleryProjects.js`, `src/data/departmentProjects.js` | ✅ 2026-07-08 — foto real dedicada 1:1 por proyecto (9 fotos nuevas en `src/assets/projects/real/`), ya no hay placeholders SVG en el proyecto |
 | Site key de reCAPTCHA v2 real | `.env` → `VITE_RECAPTCHA_SITE_KEY` | Usa la key de pruebas de Google |
 | Endpoint de Formspree | `.env` → `VITE_FORMSPREE_ENDPOINT` | Sin configurar |
-| `og-image.jpg` | Referenciado en `index.html` (Open Graph) | No existe el archivo aún |
+| `og-image.jpg` | Referenciado en `index.html` (Open Graph) | ✅ 2026-07-08 — banner de marca generado programáticamente (logo + paleta "Deep Infrastructure", mismo tratamiento "I" en ámbar que `Nav.jsx`), no es foto de obra real — reemplazar por material de marketing cuando exista |
 
 ## Checklist de lanzamiento
 
